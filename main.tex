@@ -1,0 +1,84 @@
+\documentclass{report}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{pdfpages}
+\usepackage{makeidx}
+\usepackage[margin=0.75in]{geometry}
+\usepackage{parskip}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{titlesec}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{hyperref}
+\usepackage{enumitem}
+
+%Command to Reference footnotes
+\makeatletter
+\newcommand\footnoteref[1]{\protected@xdef\@thefnmark{\ref{#1}}\@footnotemark}
+\makeatother
+
+%Formating Chapter spacing and linebreak
+\titleformat{\chapter}[hang] 
+{\normalfont\huge\bfseries}{\chaptertitlename\ \thechapter:}{1em}{}
+\titlespacing*{\chapter}{0pt}{0pt}{5pt}
+
+%Removing indent before items on list
+%\setlist[itemize]{leftmargin=*}
+
+%Setting space between lines
+% \setlength{\baselineskip}{-1.0pt}
+\renewcommand{\baselinestretch}{1.0}
+
+%Merging list of tables and figures
+\def\table{\def\figurename{Table}\figure}
+\let\endtable\endfigure 
+\renewcommand\listfigurename{List of Figures and Tables} %Renaming Title of List of Figures
+
+\newcommand{\matr}[1]{\mathbf{#1}}   %Used to indicate a matrix
+\newcommand{\vetr}[1]{\overline{#1}} %Used to indicate a Vector
+
+%Capitalising \autoref
+\renewcommand*{\chapterautorefname}{Chapter}
+\renewcommand*{\subsectionautorefname}{Subsection}
+\renewcommand*{\sectionautorefname}{Section}
+
+\hypersetup{
+  %hidelinks    = false, %Remove color box
+  frenchlinks  = false, %Small caps for hyperlinks
+  colorlinks   = true, %Colours links instead of boxes
+  urlcolor     = blue, %Colour for external hyperlinks
+  linkcolor    = black, %Colour of internal links
+  citecolor   = black   %Colour of citations
+}
+
+\begin{document}
+
+\pagenumbering{roman}                %Start roman numbering
+
+\input{Structure/Title.tex}          %Title Page
+
+\begingroup
+\let\clearpage\relax                 %Disable page break from \listoffigures
+\renewcommand{\baselinestretch}{1.0} %Set spacing for TOC
+
+\tableofcontents %Table of contents
+
+\listoffigures
+
+\endgroup %Return
+
+\input{Introduction/Introduction.tex}
+
+\input{Chapter2/Methods_and_Data.tex}
+
+\input{Chapter3/Findings.tex}
+
+%\input{Test.tex}
+
+\bibliographystyle{alpha}
+\bibliography{mybibliography.bib}
+
+\end{document}

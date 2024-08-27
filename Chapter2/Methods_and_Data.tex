@@ -1,0 +1,58 @@
+{\let\clearpage\relax \chapter{Data and methods of analysis}}
+
+In this chapter will discuss the methods we will be using to analysis our data and the sources of the data we will be using. To handle the computation of analysing our data we will be using two popular numerical computing programs, \textsc{MATLAB} and RStudio. The main appeal to using computing software, is firstly the speed and more importantly the ease of repeating the same calculations at different locations.
+
+\section{Data used}
+
+To analysis marine heat waves and their effects on the health of phytoplankton we first needed a set of data that measured the sea surface temperature (SST) across a spatial grid. We then needed a data set containing chlorophyll concentration across a spatial grid, this data is what we will use to monitor the health of phytoplankton, explained in greater detail in \autoref{subsec:chl phyt}
+
+\subsection{Chlorophyll Concentration Data}
+
+To analysis the health of phytoplankton, we use Ocean Colour Climate Change Initiative (OC\_CCI) \cite{ESA} data by the European Space Agency, which consists of globally merged satellite data with associated per-pixel uncertainty information. These satellites are MERIS, Aqua-MODIS, SeaWiFS and VIIRS; on board these satellites are various sensors that measure the characteristics of light coming from the Earth's surface.
+
+Samples of ocean water are taken and their concentrations of phytoplankton and chlorophyll are analyzed, these measurements will then be correlated with the measurements taken from the satellite light readings. Algorithms are then constructed that aim to produce accurate readings of chlorophyll concentration based solely of data obtained from satellites. These algorithms can then be used to produce readings of chlorophyll concentration data over large areas of the Earth.
+
+\subsubsection{Chlorophyll Concentration as an Indicator for Phytoplankton Health}\label{subsec:chl phyt}
+
+Chlorophyll is the material that allows plant cells to convert sunlight into energy, thus enabling them to grow. Since phytoplankton rely on photosynthesis to produce energy, this green substance is a good indicator of overall plant health. By measuring chlorophyll concentration, we can determine the health and growth of phytoplankton.
+
+\subsection{Sea Surface Temperature Data}
+
+Similarly to the chlorophyll concentration data, satellites are able to measure the SST using on board sensors that measure the characteristics of electromagnetic radiation being emitted from the Earth's oceans. The amplitude of these measured wavelengths vary with the temperature of the ocean and therefore can be used to measure temperature. 
+\\\\
+Spatial sea surface temperature data will allow us to identify marine heat waves and also allow us to build correlation models between SST and health of phytoplankton. We will be using the NOAA Optimum Interpolation Sea Surface Temperature by National Centers for Environmental Prediction (NCEP) institution. This data consists of of weekly mean temperatures compututed using a combination of in situ, satellite SST's plus SST's simulated by sea-ice cover. The satelitte data is adjusted for biases using the method of Reynolds \cite{reynolds1988real} and Reynolds and Marsico \cite{1993reynolds}.
+
+\section{Methods of Analysis}
+
+The purpose of data analysis is to extract useful information from our data by making predictions, establishing relationships and correlations and deepen our understanding of the involved mechanisms in our system. In this section will we introduce and briefly explain the method, it's purpose and it's reliability.
+
+\subsection{Auto-regressive Integrated Moving Average}\label{subsec:ARIMA}
+
+Auto-regressive integrated moving average (ARIMA) is a general model introduced by Box and Jenkins in 1976 \cite{li1986fractional} it includes auto-regressive as well as moving average parameters, and explicitly includes differencing in the formulation of the model. Specifically, the three types of parameters in the model are: the auto-regressive parameters ($p$), the number of differencing passes ($d$), and moving average parameters ($q$). In the notation introduced by Box and Jenkins, models are summarized as $ARIMA(p,d,q)$ which is defined as:
+
+\begin{equation*}
+    \Big( 1 - \sum_{i=1}^p\phi_iL^i\Big)(1-L)^d\mathbf{X}_t = \delta + \Big(1+\sum_{i=1}^q\theta_i L^i\Big)\epsilon_t
+\end{equation*}
+\\
+Where $L$ is the lag operator, ($\theta_i$) are the parameters of the moving average part and $\epsilon_t$ are error terms. With drift
+\begin{equation*}
+    \frac{\delta}{1-\sum\phi_i}
+\end{equation*}
+\\
+for a given time series data $\bold{X}_t$, where $t$ is an integer index.
+\\\\
+We will be using the R function, "Maxima" from the "TSA" R package \cite{TSA} to calculate our spatial chlorophyll concentration and SST models.
+
+\subsection{new section}
+
+\subsection{Climatology}
+
+Climatology plots show how the data can be best represented as a cyclic function for a given period of time. These can be helpful in establishing relationships between data sets and given a time series for a long period of time you can help find anomalies, this will be particularly useful for defining MHW days.
+\\\\
+To calculate climatologies to be used in defining MHW we will use the harmonic analysis algorithm developed by Eric Oliver, Institute for Marine and Antarctic Studies, University of Tasmania, Feb 2015, and later documented by Hobday in 2016, \cite{hobday2016hierarchical} on our SST data.
+\\\\
+To produce our climatologies of phytoplankton health, we will be using the technique adapted by John, Bruun \cite{bruun2017heartbeat} which involves using ARIMA model parameters with cosine and sinusoidal transformation of harmonic terms.
+
+\subsection{Regression Analysis}
+
+Regression analysis is a statistical process for estimating the relationship between a dependent variable and one or more independent variables. We will be using a built in R function, "abline" to infer a casual relationship between between chlorophyll concentration and SST.
