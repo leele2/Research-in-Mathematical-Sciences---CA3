@@ -18,7 +18,7 @@ Chlorophyll is the material that allows plant cells to convert sunlight into ene
 
 \subsection{Sea Surface Temperature Data}
 
-Similarly to the chlorophyll concentration data, satellites are able to measure the SST using on board sensors that measure the characteristics of electromagnetic radiation being emitted from the Earth's oceans. The amplitude of these measured wavelengths vary with the temperature of the ocean and therefore can be used to measure temperature. 
+Similarly to the chlorophyll concentration data, satellites are able to measure the SST using on board sensors that measure the characteristics of electromagnetic radiation being emitted from the Earth's oceans. The amplitude of these measured wavelengths vary with the temperature of the ocean and therefore can be used to measure temperature.
 \\\\
 Spatial sea surface temperature data will allow us to identify marine heat waves and also allow us to build correlation models between SST and health of phytoplankton. We will be using the NOAA Optimum Interpolation Sea Surface Temperature by National Centers for Environmental Prediction (NCEP) institution. This data consists of of weekly mean temperatures compututed using a combination of in situ, satellite SST's plus SST's simulated by sea-ice cover. The satelitte data is adjusted for biases using the method of Reynolds \cite{reynolds1988real} and Reynolds and Marsico \cite{1993reynolds}.
 
@@ -42,8 +42,6 @@ Where $L$ is the lag operator, ($\theta_i$) are the parameters of the moving ave
 for a given time series data $\bold{X}_t$, where $t$ is an integer index.
 \\\\
 We will be using the R function, "Maxima" from the "TSA" R package \cite{TSA} to calculate our spatial chlorophyll concentration and SST models.
-
-\subsection{new section}
 
 \subsection{Climatology}
 
